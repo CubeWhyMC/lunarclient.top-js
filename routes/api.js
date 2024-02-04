@@ -60,7 +60,7 @@ function getModules(subVersion) {
     return list;
 }
 
-function findVersionInfo(version, module) {
+function findVersionInfo(version, module, os, arch) {
     let majorVersion = version.split(".").slice(0, 2).join(".");
     let path = `config/versions/${majorVersion}/${version}/${module}.json`;
     if (fs.existsSync(path)) {
@@ -68,7 +68,7 @@ function findVersionInfo(version, module) {
         let out = {
             success: true,
             launchTypeData: {
-                artifacts: getArtifacts(version, module).concat(json["launch"]["artifacts"]),
+                artifacts: getArtifacts(version, module, os, arch).concat(json["launch"]["artifacts"]),
                 mainClass: apiConfig.launch.defaultMainClass,
                 ichor: true
             }
@@ -78,9 +78,20 @@ function findVersionInfo(version, module) {
     return null
 }
 
-function getArtifacts(version, module) {
+function getArtifacts(version, module, os, arch) {
     // todo get artifacts
-    return []
+    return [
+        findNatives(os, arch)
+    ]
+}
+
+function findNatives(os, arch) {
+    let json = JSON.parse(fs.readFileSync("config/natives.json", "utf-8"))
+    let natives = json[os][arch] // example: win32 x64
+    return {
+        ...natives,
+        "type": "NATIVES"
+    }
 }
 
 router.get("/", (req, res) => {
@@ -106,7 +117,7 @@ router.post("/launcher/launch", (req, res) => {
     let os = json["os"];
     let arch = json["arch"];
 
-    let versionResult = findVersionInfo(version, module)
+    let versionResult = findVersionInfo(version, module, os, arch)
 
     res.json(versionResult)
 })

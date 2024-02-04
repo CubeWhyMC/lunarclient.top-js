@@ -4,6 +4,62 @@
   },
   "launch": {
     "artifacts": [
+      {
+        "name": "common-0.1.0-SNAPSHOT-all-legacy.jar",
+        "sha1": "34e17ec0468ca364c5ce09d9523f1d2995eafc95",
+        "url": "https://offline.lunarclientcdn.com/common-0.1.0-SNAPSHOT-all.jar/34e17ec0468ca364c5ce09d9523f1d2995eafc95",
+        "differentialUrl": "https://offline.lunarclientcdn.com/common-0.1.0-SNAPSHOT-all.jar/to-34e17ec0468ca364c5ce09d9523f1d2995eafc95-from-PREVIOUS_HASH",
+        "type": "CLASS_PATH"
+      },
+      {
+        "name": "v1_8-0.1.0-SNAPSHOT-all-legacy.jar",
+        "sha1": "7051e480a8e4a62cba52163520867ca99a74583b",
+        "url": "https://offline.lunarclientcdn.com/v1_8-0.1.0-SNAPSHOT-all.jar/7051e480a8e4a62cba52163520867ca99a74583b",
+        "differentialUrl": "https://offline.lunarclientcdn.com/v1_8-0.1.0-SNAPSHOT-all.jar/to-7051e480a8e4a62cba52163520867ca99a74583b-from-PREVIOUS_HASH",
+        "type": "CLASS_PATH"
+      },
+      {
+        "name": "lunar-lang-legacy.jar",
+        "sha1": "e3b8b516d3bb7a5b43d205caa2d2daa702e1ddc6",
+        "url": "https://offline.lunarclientcdn.com/lunar-lang.jar/e3b8b516d3bb7a5b43d205caa2d2daa702e1ddc6",
+        "differentialUrl": "https://offline.lunarclientcdn.com/lunar-lang.jar/to-e3b8b516d3bb7a5b43d205caa2d2daa702e1ddc6-from-PREVIOUS_HASH",
+        "type": "CLASS_PATH"
+      },
+      {
+        "name": "lunar-emote-legacy.jar",
+        "sha1": "b04f3ee8f5e43fa3b162981b50bb72fe1acabb33",
+        "url": "https://offline.lunarclientcdn.com/lunar-emote.jar/b04f3ee8f5e43fa3b162981b50bb72fe1acabb33",
+        "differentialUrl": "https://offline.lunarclientcdn.com/lunar-emote.jar/to-b04f3ee8f5e43fa3b162981b50bb72fe1acabb33-from-PREVIOUS_HASH",
+        "type": "CLASS_PATH"
+      },
+      {
+        "name": "lunar-xrk.jar",
+        "sha1": "835ee16dc9b3f0a5dba149df290fc80d73109425",
+        "url": "https://oss.lunarclient.top/lunarcn-xrk/cn0.0.2.jar",
+        "differentialUrl": "https://api.lunarclient.top/launcher/download?path\u003d/lunar-xrk.jar",
+        "type": "CLASS_PATH"
+      },
+      {
+        "name": "optifine-0.1.0-SNAPSHOT-all-legacy.jar",
+        "sha1": "94a2b04bf0d610e2f2d16d01dba588ce940df54e",
+        "url": "https://offline.lunarclientcdn.com/optifine-0.1.0-SNAPSHOT-all.jar/94a2b04bf0d610e2f2d16d01dba588ce940df54e",
+        "differentialUrl": "https://offline.lunarclientcdn.com/optifine-0.1.0-SNAPSHOT-all.jar/to-94a2b04bf0d610e2f2d16d01dba588ce940df54e-from-PREVIOUS_HASH",
+        "type": "CLASS_PATH"
+      },
+      {
+        "name": "OptiFine_v1_8-legacy.jar",
+        "sha1": "0bb792be16ec78d8b62586cc4856950befb3391b",
+        "url": "https://offline.lunarclientcdn.com/OptiFine_v1_8.jar/0bb792be16ec78d8b62586cc4856950befb3391b",
+        "differentialUrl": "https://offline.lunarclientcdn.com/OptiFine_v1_8.jar/to-0bb792be16ec78d8b62586cc4856950befb3391b-from-PREVIOUS_HASH",
+        "type": "EXTERNAL_FILE"
+      },
+      {
+        "name": "genesis-0.1.0-SNAPSHOT-all-legacy.jar",
+        "sha1": "7e083d1b83c0b0d544b0bbdd3af129ca9fd79d73",
+        "url": "https://offline.lunarclientcdn.com/genesis-0.1.0-SNAPSHOT-all.jar/7e083d1b83c0b0d544b0bbdd3af129ca9fd79d73",
+        "differentialUrl": "https://offline.lunarclientcdn.com/genesis-0.1.0-SNAPSHOT-all.jar/to-7e083d1b83c0b0d544b0bbdd3af129ca9fd79d73-from-PREVIOUS_HASH",
+        "type": "CLASS_PATH"
+      }
     ],
     "ext": {
       "textures": {
