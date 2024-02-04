@@ -1,9 +1,13 @@
 const express = require('express');
+const {websiteConfig} = require("../config");
 const router = express.Router();
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-    res.render('index');
+    res.render('index', {
+        title: websiteConfig["title"],
+        description: websiteConfig["description"]
+    });
 });
 
 // router.get("/crash", async function (req, res) {
