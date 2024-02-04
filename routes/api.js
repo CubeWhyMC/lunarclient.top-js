@@ -34,84 +34,81 @@ function getSubVersions(version) {
             list.push({
                 id: subVersion,
                 "default": apiConfig.metadata.defaultVersion === subVersion,
-                modules: getModules(version, subVersion)
+                modules: getModules(subVersion)
             });
         }
     })
     return list;
 }
 
-function getModules(version, subVersion) {
+function getModules(subVersion) {
     let list = [];
-    let path = `config/versions/${version}/${subVersion}`;
+    let majorVersion = subVersion.split(".").slice(0, 2).join(".");
+    let path = `config/versions/${majorVersion}/${subVersion}`;
     let modules = fs.readdirSync(path);
     modules.forEach((module) => {
         let file = `${path}/${module}`
         let stat = fs.statSync(file);
         if (stat.isFile() && module.endsWith(".json")) {
-            let json = JSON.parse(fs.readFileSync(file, "utf-8"))
+            let json = JSON.parse(fs.readFileSync(file, "utf-8"));
             list.push({
                 id: module.split(".").slice(0, -1).join("."),
                 "default": json["metadata"]["default"]
-            })
+            });
         }
-    })
+    });
     return list;
+}
+
+function findVersionInfo(version, module) {
+    let majorVersion = version.split(".").slice(0, 2).join(".");
+    let path = `config/versions/${majorVersion}/${version}/${module}.json`;
+    if (fs.existsSync(path)) {
+        let json = JSON.parse(fs.readFileSync(path, "utf-8"));
+        let out = {
+            success: true,
+            launchTypeData: {
+                artifacts: getArtifacts(version, module).concat(json["launch"]["artifacts"]),
+                mainClass: apiConfig.launch.defaultMainClass,
+                ichor: true
+            }
+        }
+        return {...out, ...json["launch"]["ext"]}
+    }
+    return null
+}
+
+function getArtifacts(version, module) {
+    // todo get artifacts
+    return []
 }
 
 router.get("/", (req, res) => {
     // redirect to documents
-    res.redirect("/help")
+    res.redirect("/help");
 })
 
 router.get("/launcher/metadata", (req, res) => {
     // read config/artifacts
     let json = {
-        // versions: [
-        //     {
-        //         "id": "1.8",
-        //         "default": true,
-        //         "subversions": [
-        //             {
-        //                 "id": "1.8.9",
-        //                 "default": true,
-        //                 "assets": {
-        //                     "id": "1.8",
-        //                     "url": "https://launchermeta.mojang.com/v1/packages/f6ad102bcaa53b1a58358f16e376d548d44933ec/1.8.json",
-        //                     "sha1": "f6ad102bcaa53b1a58358f16e376d548d44933ec"
-        //                 },
-        //                 "modules": [
-        //                     {
-        //                         "id": "lunar",
-        //                         "default": true,
-        //                         "name": "Lunar + OptiFine",
-        //                         "description": "Lunar bundled with OptiFine. OptiFine is an optimization mod that allows Minecraft to run faster and look better.",
-        //                         "credits": "sp614x",
-        //                         "image": "https://launcherimages.lunarclientcdn.com/cdn-cgi/image/format=auto,width=40,height=40/modules/optifine.png"
-        //                     },
-        //                     {
-        //                         "id": "forge",
-        //                         "default": false,
-        //                         "name": "Lunar + Forge",
-        //                         "description": "Lunar bundled with the Forge mod loader and a selection of Forge mods. Includes OptiFine, Replay Mod, NotEnoughUpdates, and SkyblockAddons.",
-        //                         "credits": "",
-        //                         "image": "https://launcherimages.lunarclientcdn.com/cdn-cgi/image/format=auto,width=40,height=40/modules/forge.png"
-        //                     }
-        //                 ]
-        //             }
-        //         ]
-        //     }
-        // ],
         versions: getVersions(),
         blogPosts: getBlogposts(),
         alert: apiConfig.metadata.alert,
         modpacks: apiConfig.metadata.modPacks
-    }
-    res.json(json)
+    };
+    res.json(json);
 })
 
-router.get("/launcher/launch", (req, res) => {
+router.post("/launcher/launch", (req, res) => {
+    let json = req.body
+    let version = json["version"];
+    let module = json["module"];
+    let os = json["os"];
+    let arch = json["arch"];
 
+    let versionResult = findVersionInfo(version, module)
+
+    res.json(versionResult)
 })
 
 module.exports = router;

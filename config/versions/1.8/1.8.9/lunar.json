@@ -1,5 +1,16 @@
 {
   "metadata": {
     "default": true
+  },
+  "launch": {
+    "artifacts": [
+    ],
+    "ext": {
+      "textures": {
+        "indexUrl": "https://textures.lunarclientcdn.com/index/11b67316327326b8ac3f601878ea55afbe2e01ac",
+        "indexSha1": "11b67316327326b8ac3f601878ea55afbe2e01ac",
+        "baseUrl": "https://textures.lunarclientcdn.com/file/"
+      }
+    }
   }
 }
