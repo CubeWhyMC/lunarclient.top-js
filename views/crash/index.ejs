@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>LunarCN Client | 错误报告列表</title>
+    <link rel="stylesheet" href="/stylesheets/crash.css" type="text/css">
+    <script>
+        function findReport() {
+            let idFromInput = document.getElementById("crashID").value;
+            window.location.href = "/crash?id=" + idFromInput;
+        }
+        function toggleList() {
+            document.getElementById("btnToggle").hidden = true;
+            document.getElementById("list").hidden = false;
+        }
+    </script>
+    <style>
+        details[open] div {
+            animation: slideDown 0.5s ease-in-out;
+        }
+
+        @keyframes slideDown {
+            0% {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        details div {
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+<h1>错误报告</h1>
+<h2>快速跳转</h2>
+<form>
+    <label for="crashID">崩溃ID: </label><input id="crashID" type="text"><br>
+    <button type="button" onclick="findReport()">查看错误报告</button>
+</form><br>
+
+<details id="crashReportList">
+    <summary style="user-select: none">所有崩溃报告</summary>
+    <div>
+        <ul>
+            <% for (let i = 0; i < reports.length; i++) { %>
+                <li>
+                    <a href="/crash?id=<%= reports[i] %>">
+                        Crash ID: <%= reports[i] %><br>
+                    </a>
+                </li>
+            <% } %>
+        </ul>
+    </div>
+</details>
+
+</body>
+</html>

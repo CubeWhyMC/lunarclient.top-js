@@ -1,0 +1,26 @@
+{
+    "title":"Celestial - Your next Minecraft launcher",
+    "nav-home":"Home",
+    "nav-download":"Download",
+    "nav-doc":"Docs",
+    "nav-donate": "Donate",
+    "poop1":"Celestial - Your next Minecraft launcher",
+    "poop2":"Open Source & Free",
+    "btn-download":"Download",
+    "about-title":"About Celestial",
+    "about-content1":"Celestial is a Minecraft launcher developed by CubeWhyMC, which is used to launch the LunarClient.\nIf you like it, please give it a star",
+    "about-features":"What does Celestial do?",
+    "about-features-content": "Fully open source (GPLv3)\n No Electron\n no installation, out of the box \n support for external browser login\n Cross-platform \n custom API address\n multi-version support, one jre\nJavaagent support (experimental)\nLunarCN support\nWeave support",
+    "launcher-case-title":"Features",
+    "case-title1":" Tidy page ",
+    "case-content1":" Get rid of unnecessary bloated pages, built for launching games. You just need to double-click the Jar file and it'll starts quickly.",
+    "case-title2":" Lightweight size ",
+    "case-content2":"Celestial is designed to be lightweight and provides a time-saving and storage-saving solution for many players and it has received unanimous praise.",
+    "case-title3":" Plentiful support ",
+    "case-content3":"Celestial Community is a vibrant community, we will update frequently, welcome you to join our Discord,we are waiting for you!",
+    "case-join":"Join Now",
+    "case-download":"Download Now",
+    "footer-ads":"We are looking for ads partners,contact us at me@lunarclient.top for more information.",
+    "launch-count": "Launch count: "
+  }
+  

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>LunarCN Client | Download</title>
+    <script>
+        let link = localStorage.getItem("downloadLink");
+        if (link === null) {
+            alert("wtf? please click a download button first!");
+            window.location.href = "/download";
+        }
+
+        function send() {
+            console.log("redirecting...")
+            // clean storage
+            localStorage.removeItem("downloadLink");
+            window.location.href = link; // redirect
+        }
+
+        // send download
+        let i = setInterval("send();clearInterval(i)", 10000);
+    </script>
+</head>
+<body>
+<h1>感谢下载LunarCN</h1>
+<p>你的下载一会就会开始(应该是10s), 若未开始请点击<a id="lnk" onclick="localStorage.removeItem('downloadLink')">此处</a>手动下载</p>
+<h2>赞助</h2>
+<p>LunarCN是开源软件, 请<a href="/donate">赞助</a>来支持开发者</p>
+<!--广告位开始-->
+<label>接广告位,15r/月 有兴趣请联系 me@lunarclient.top</label>
+<!--广告位结束-->
+<script>
+    // process links
+    let element = document.getElementById("lnk");
+    element.href = link;
+</script>
+</body>
+</html>

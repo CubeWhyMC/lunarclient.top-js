@@ -1,0 +1,48 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+h1 {
+    background-color: #007acc;
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+.container {
+    margin: 20px;
+    padding: 20px;
+    background-color: white;
+    border: 1px solid #ccc;
+}
+
+/* Style the crash details */
+h2 {
+    color: #007acc;
+}
+
+pre {
+    background-color: #f0f0f0;
+    padding: 10px;
+    border: 1px solid #ccc;
+    overflow-x: auto;
+}
+
+.back-button {
+    display: block;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.back-button a {
+    text-decoration: none;
+    color: #007acc;
+}
+
+.back-button a:hover {
+    text-decoration: underline;
+}

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>LunarCN Client | 错误报告查看器</title>
+    <link rel="stylesheet" href="/stylesheets/crash-query.css" type="text/css">
+</head>
+<body>
+<h1>错误报告信息</h1>
+<p>错误报告ID: <%= crashID %></p>
+<p>崩溃日期: <label id="crashTime"></label></p>
+<p>崩溃类型: <label id="crashType"></label></p>
+<h2>错误报告内容</h2>
+<pre>
+<%= trace %>
+</pre>
+<div id="areaLaunchScript" hidden>
+    <h2>启动脚本</h2>
+    <pre id="ls">
+<%= launchScript %>
+    </pre>
+</div>
+<div id="areaGo" hidden>
+    <h2>快速跳转</h2>
+    <a href="/crash">查看所有错误报告</a>
+    <h3>或查看指定的一个报告</h3>
+    <form>
+        <label for="inputId">崩溃ID: </label><input id="inputId" name="id"><br>
+        <button>GO</button>
+    </form>
+</div>
+<script>
+    document.getElementById("crashTime").innerHTML = new Date(<%= time %>).toDateString();
+    let crashType = "<%= type %>";
+    let text = crashType;
+    switch (crashType) {
+        case "web":
+            text = "网页后端错误";
+            document.getElementById("areaGo").hidden = false;
+            break;
+        case "launcher":
+            text = "启动器错误"
+            break;
+        case "game":
+            document.getElementById("areaLaunchScript").hidden = false;
+            text = "游戏错误";
+            break;
+    }
+    document.getElementById("inputId").value = new URL(window.location.href).searchParams.get("id");
+    document.getElementById("crashType").innerHTML = text;
+</script>
+</body>
+</html>
