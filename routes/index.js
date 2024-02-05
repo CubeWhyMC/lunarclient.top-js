@@ -1,3 +1,4 @@
+const fs = require("fs");
 const express = require('express');
 const {websiteConfig} = require("../config");
 const router = express.Router();
@@ -10,49 +11,45 @@ router.get('/', function (req, res, next) {
     });
 });
 
-// router.get("/crash", async function (req, res) {
-//     let crashID = req.query["id"];
-//     if (crashID === undefined) {
-//         let requestURL = process.env.backendLocal + "launcher/getCrashReport"
-//         try {
-//             let axiosResponse = await axios.get(requestURL);
-//             let reports = axiosResponse.data["data"];
-//             res.render("crash/index", {
-//                 id: crashID,
-//                 reports: reports
-//             });
-//         } catch (e) {
-//             // api is unreachable
-//             console.error("API was unreachable");
-//             console.error(e);
-//         }
-//     } else {
-//         let requestURL = process.env.backendLocal + "launcher/getCrashReport?id=" + crashID
-//         // TODO request the api server to get info
-//         await axios.get(requestURL).then(axiosResponse => {
-//             let data = axiosResponse.data["data"];
-//             let trace = data["trace"];
-//             let type = data["type"];
-//             let time = data["time"];
-//             let launchScript = data["launch-script"]
-//             res.render("crash/result", {
-//                 crashID: crashID,
-//                 trace: trace,
-//                 type: type,
-//                 time: time,
-//                 launchScript: launchScript
-//             })
-//         }).catch(e => {
-//             res.render("crash/result", {
-//                 crashID: "not-found",
-//                 trace: `Crash ID ${crashID} not found`,
-//                 type: "web",
-//                 time: new Date().getTime(),
-//                 launchScript: null
-//             })
-//         });
-//     }
-// })
+function getCrashReportList() {
+    let list = [];
+    fs.readdirSync("config/crash-report").forEach((report) => {
+        list.push(report.slice(0, report.lastIndexOf('.')));
+    });
+    return list;
+}
+
+function getCrashReport(id) {
+    let path = `config/crash-report/${id}.json`;
+    if (!fs.existsSync(path)) return null;
+    return JSON.parse(fs.readFileSync(path, "utf-8"));
+}
+
+router.get("/crash", (req, res) => {
+    let crashID = req.query["id"];
+    if (!crashID) {
+        res.render("crash/index", {
+            id: crashID,
+            reports: getCrashReportList()
+        });
+    } else {
+        let result = getCrashReport(crashID);
+        if (result) {
+            res.render("crash/result", {
+                crashID: crashID,
+                ...result
+            });
+        } else {
+            res.render("crash/result", {
+                crashID: "not-found",
+                trace: `Crash ID ${crashID} not found`,
+                type: "web",
+                time: new Date().getTime(),
+                launchScript: null
+            });
+        }
+    }
+})
 
 router.get('/download/:v', function (req, res) {
     res.redirect("https://github.com/CubeWhyMC/celestial/releases/" + req.params.v);

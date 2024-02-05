@@ -1,5 +1,5 @@
 const CryptoJS = require("crypto-js")
-const { v4: uuidv4 } = require('uuid');
+const {v4: uuidv4} = require('uuid');
 const AdmZip = require('adm-zip');
 
 const express = require('express');
@@ -59,8 +59,7 @@ function getModules(subVersion) {
         if (stat.isFile() && module.endsWith(".json")) {
             let json = JSON.parse(fs.readFileSync(file, "utf-8"));
             list.push({
-                id: module.split(".").slice(0, -1).join("."),
-                "default": json["metadata"]["default"]
+                id: module.split(".").slice(0, -1).join("."), "default": json["metadata"]["default"]
             });
         }
     });
@@ -73,13 +72,11 @@ function findVersionInfo(version, module, os, arch) {
     if (fs.existsSync(path)) {
         let json = JSON.parse(fs.readFileSync(path, "utf-8"));
         let out = {
-            success: true,
-            launchTypeData: {
+            success: true, launchTypeData: {
                 artifacts: getArtifacts(version, module, os, arch).concat(json["launch"]["artifacts"]),
                 mainClass: apiConfig.launch.defaultMainClass,
                 ichor: true
-            },
-            jre: {
+            }, jre: {
                 extraArguments: apiConfig.launch.defaultVMArgs
             }
         };
@@ -101,10 +98,7 @@ function getArtifacts(version, module, os, arch) {
             let hash = CryptoJS.SHA1(fs.readFileSync(file)).toString()
             if (!hashmap.hasOwnProperty(hash)) hashmap[hash] = file;
             list.push({
-                name: artifact,
-                sha1: hash,
-                url: apiConfig.api.deploy + `/download/${hash}`,
-                type: "CLASS_PATH"
+                name: artifact, sha1: hash, url: apiConfig.api.deploy + `/download/${hash}`, type: "CLASS_PATH"
             });
         }
     });
@@ -127,10 +121,7 @@ function getExternalFiles(version, module) {
         if (stat.isFile() && file.endsWith(".jar")) {
             let hash = CryptoJS.SHA1(fs.readFileSync(really)).toString()
             list.push({
-                name: file,
-                sha1: hash,
-                url: apiConfig.api.deploy + `/download/${hash}`,
-                type: "EXTERNAL_FILE"
+                name: file, sha1: hash, url: apiConfig.api.deploy + `/download/${hash}`, type: "EXTERNAL_FILE"
             });
         }
     })
@@ -142,17 +133,14 @@ function findNatives(os, arch) {
     let json = JSON.parse(fs.readFileSync("config/natives.json", "utf-8"))
     let natives = json[os][arch] // example: win32 x64
     return {
-        ...natives,
-        "type": "NATIVES"
+        ...natives, "type": "NATIVES"
     }
 }
 
 function findFileByHash(hash) {
     let path = hashmap[hash];
     return {
-        name: path.split("/")[path.split("/").length - 1],
-        path: path,
-        stream: fs.createReadStream(path)
+        name: path.split("/")[path.split("/").length - 1], path: path, stream: fs.createReadStream(path)
     };
 }
 
@@ -248,12 +236,10 @@ router.post("/launcher/uploadCrashReport", (req, res) => {
     let crashId = uuidv4();
 
     let path = `config/crash-report/${crashId}.json`;
-    fs.writeFileSync(path, JSON.stringify(req.body));
+    fs.writeFileSync(path, JSON.stringify({...req.body, time: Date.now()}));
 
     res.json({
-        id: crashId,
-        message: "Successful",
-        url: `${websiteConfig.url}/crash?id=${crashId}`
+        id: crashId, message: "Successful", url: `${websiteConfig.url}/crash?id=${crashId}`
     });
 })
 
