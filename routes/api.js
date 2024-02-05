@@ -1,7 +1,11 @@
+const CryptoJS = require("crypto-js")
+
 const express = require('express');
 const {apiConfig} = require("../config");
 const fs = require("fs");
 const router = express.Router();
+
+const hashmap = {}
 
 function getBlogposts() {
     return JSON.parse(fs.readFileSync("./config/blogposts.json", "utf-8"));
@@ -47,7 +51,7 @@ function getModules(subVersion) {
     let path = `config/versions/${majorVersion}/${subVersion}`;
     let modules = fs.readdirSync(path);
     modules.forEach((module) => {
-        let file = `${path}/${module}`
+        let file = `${path}/${module}`;
         let stat = fs.statSync(file);
         if (stat.isFile() && module.endsWith(".json")) {
             let json = JSON.parse(fs.readFileSync(file, "utf-8"));
@@ -79,10 +83,53 @@ function findVersionInfo(version, module, os, arch) {
 }
 
 function getArtifacts(version, module, os, arch) {
-    // todo get artifacts
-    return [
-        findNatives(os, arch)
-    ]
+    let list = [findNatives(os, arch)];
+    let majorVersion = version.split(".").slice(0, 2).join(".");
+    let path = `config/versions/${majorVersion}/${version}/artifacts/${module}`;
+
+    let artifacts = fs.readdirSync(path);
+    artifacts.forEach((artifact) => {
+        let file = `${path}/${artifact}`;
+        let stat = fs.statSync(file);
+        if (stat.isFile() && artifact.endsWith(".jar")) {
+            let hash = CryptoJS.SHA1(fs.readFileSync(file)).toString()
+            if (!hashmap.hasOwnProperty(hash)) hashmap[hash] = file;
+            list.push({
+                name: artifact,
+                sha1: hash,
+                url: apiConfig.api.deploy + `/launcher/download/${hash}`,
+                type: "CLASS_PATH"
+            });
+        }
+    })
+
+    return list.concat(getExternalFiles(version, module));
+}
+
+function getExternalFiles(version, module) {
+    let list = [];
+    let majorVersion = version.split(".").slice(0, 2).join(".");
+    let path = `config/versions/${majorVersion}/${version}/artifacts/${module}/external`;
+
+    if (!fs.existsSync(path)) return []; // not found
+
+    let files = fs.readdirSync(path);
+    files.forEach((file) => {
+        let really = `${path}/${file}`;
+        let stat = fs.statSync(really);
+
+        if (stat.isFile() && file.endsWith(".jar")) {
+            let hash = CryptoJS.SHA1(fs.readFileSync(really)).toString()
+            list.push({
+                name: file,
+                sha1: hash,
+                url: apiConfig.api.deploy + `/launcher/download/${hash}`,
+                type: "EXTERNAL_FILE"
+            });
+        }
+    })
+
+    return list;
 }
 
 function findNatives(os, arch) {
@@ -92,6 +139,15 @@ function findNatives(os, arch) {
         ...natives,
         "type": "NATIVES"
     }
+}
+
+function findFileByHash(hash) {
+    let path = hashmap[hash];
+    return {
+        name: path.split("/")[path.split("/").length - 1],
+        path: path,
+        stream: fs.createReadStream(path)
+    };
 }
 
 router.get("/", (req, res) => {
@@ -120,6 +176,24 @@ router.post("/launcher/launch", (req, res) => {
     let versionResult = findVersionInfo(version, module, os, arch)
 
     res.json(versionResult)
+})
+
+router.get("/launcher/download/:hash", (req, res) => {
+    let hash = req.params["hash"];
+
+    let file = findFileByHash(hash);
+    let fileStream = file.stream
+    res.setHeader('Content-type', 'application/octet-stream');
+    res.setHeader('Content-Disposition', `attachment; filename=${file.name}`);
+
+    fileStream.on('open', () => {
+        fileStream.pipe(res);
+    });
+
+    fileStream.on('error', (err) => {
+        console.error(`Error reading file: ${err}`);
+        res.status(500).end();
+    });
 })
 
 module.exports = router;

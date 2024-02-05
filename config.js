@@ -13,5 +13,8 @@ exports.apiConfig = {
     },
     launch: {
         defaultMainClass: "com.moonsworth.lunar.genesis.Genesis"
+    },
+    api: {
+        deploy: "http://127.0.0.1:3000/api"
     }
 }

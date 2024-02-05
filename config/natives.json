@@ -1,14 +1,14 @@
 {
   "win32": {
     "x64": {
-      "name": "client-natives-win-x86-v1_8.zip",
+      "name": "client-natives-win-x86.zip",
       "sha1": "e2a565f50f320a2426448122fda047a2496b77da",
       "url": "https://offline.lunarclientcdn.com/client-natives-win-x86-v1_8.zip/e2a565f50f320a2426448122fda047a2496b77da"
     }
   },
   "linux":{
     "x64": {
-      "name": "client-natives-linux-x86-v1_8.zip",
+      "name": "client-natives-linux-x86.zip",
       "sha1": "63fd9d618b2ece356cb2acff39bb121fd97909a8",
       "url": "https://offline.lunarclientcdn.com/client-natives-linux-x86-v1_8.zip/63fd9d618b2ece356cb2acff39bb121fd97909a8"
     }

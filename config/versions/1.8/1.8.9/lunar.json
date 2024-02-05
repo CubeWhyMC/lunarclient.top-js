@@ -33,13 +33,6 @@
         "type": "CLASS_PATH"
       },
       {
-        "name": "lunar-xrk.jar",
-        "sha1": "835ee16dc9b3f0a5dba149df290fc80d73109425",
-        "url": "https://oss.lunarclient.top/lunarcn-xrk/cn0.0.2.jar",
-        "differentialUrl": "https://api.lunarclient.top/launcher/download?path\u003d/lunar-xrk.jar",
-        "type": "CLASS_PATH"
-      },
-      {
         "name": "optifine-0.1.0-SNAPSHOT-all-legacy.jar",
         "sha1": "94a2b04bf0d610e2f2d16d01dba588ce940df54e",
         "url": "https://offline.lunarclientcdn.com/optifine-0.1.0-SNAPSHOT-all.jar/94a2b04bf0d610e2f2d16d01dba588ce940df54e",
