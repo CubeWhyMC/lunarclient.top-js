@@ -77,4 +77,8 @@ router.get("/donate", function (req, res) {
     res.render("donate", {})
 });
 
+router.get("/plugins", (req, res) => {
+    res.render("plugins");
+});
+
 module.exports = router;

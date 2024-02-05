@@ -1,4 +1,5 @@
 const CryptoJS = require("crypto-js")
+const AdmZip = require('adm-zip');
 
 const express = require('express');
 const {apiConfig} = require("../config");
@@ -41,7 +42,7 @@ function getSubVersions(version) {
                 modules: getModules(subVersion)
             });
         }
-    })
+    });
     return list;
 }
 
@@ -79,10 +80,10 @@ function findVersionInfo(version, module, os, arch) {
             jre: {
                 extraArguments: apiConfig.launch.defaultVMArgs
             }
-        }
-        return {...out, ...json["launch"]["ext"]}
+        };
+        return {...out, ...json["launch"]["ext"]};
     }
-    return null
+    return null;
 }
 
 function getArtifacts(version, module, os, arch) {
@@ -100,11 +101,11 @@ function getArtifacts(version, module, os, arch) {
             list.push({
                 name: artifact,
                 sha1: hash,
-                url: apiConfig.api.deploy + `/launcher/download/${hash}`,
+                url: apiConfig.api.deploy + `/download/${hash}`,
                 type: "CLASS_PATH"
             });
         }
-    })
+    });
 
     return list.concat(getExternalFiles(version, module));
 }
@@ -126,7 +127,7 @@ function getExternalFiles(version, module) {
             list.push({
                 name: file,
                 sha1: hash,
-                url: apiConfig.api.deploy + `/launcher/download/${hash}`,
+                url: apiConfig.api.deploy + `/download/${hash}`,
                 type: "EXTERNAL_FILE"
             });
         }
@@ -153,6 +154,60 @@ function findFileByHash(hash) {
     };
 }
 
+function getAddonType(type) {
+    let result;
+    switch (type) {
+        case "agents":
+            result = "Agent";
+            break;
+        case "weave":
+            result = "weave";
+            break;
+        case "cn":
+            result = "cn";
+            break;
+        case "fabric":
+            result = "fabric";
+            break;
+        default:
+            result = type;
+            break;
+    }
+    return result;
+}
+
+function getPlugins() {
+    let list = [];
+    let path = `config/addons`;
+    let addonTypes = fs.readdirSync(path);
+    addonTypes.forEach((addonType) => {
+        let path2 = `${path}/${addonType}`
+        fs.readdirSync(path2).forEach((addon) => {
+            let addonFile = `${path2}/${addon}`
+            let file = fs.readFileSync(addonFile)
+            let hash = CryptoJS.SHA1(file).toString()
+
+            if (!hashmap.hasOwnProperty(hash)) hashmap[hash] = addonFile
+
+            let zip = new AdmZip(addonFile);
+
+            let metaJson = zip.getEntry("addon.meta.json");
+            let meta = {}
+            if (metaJson) meta = JSON.parse(metaJson.getData().toString('utf8'))
+
+            list.push({
+                name: addon,
+                sha1: hash,
+                downloadLink: `/download/${hash}`,
+                category: getAddonType(addonType),
+                meta: meta // 这里包含addon.meta.json的内容或null
+            });
+        });
+    });
+
+    return list;
+}
+
 router.get("/", (req, res) => {
     // redirect to documents
     res.redirect("/help");
@@ -167,8 +222,7 @@ router.get("/launcher/metadata", (req, res) => {
         modpacks: apiConfig.metadata.modPacks
     };
     res.json(json);
-})
-
+});
 router.post("/launcher/launch", (req, res) => {
     let json = req.body
     let version = json["version"];
@@ -176,12 +230,12 @@ router.post("/launcher/launch", (req, res) => {
     let os = json["os"];
     let arch = json["arch"];
 
-    let versionResult = findVersionInfo(version, module, os, arch)
+    let versionResult = findVersionInfo(version, module, os, arch);
 
-    res.json(versionResult)
-})
+    res.json(versionResult);
+});
 
-router.get("/launcher/download/:hash", (req, res) => {
+router.get("/download/:hash", (req, res) => {
     let hash = req.params["hash"];
 
     let file = findFileByHash(hash);
@@ -197,6 +251,15 @@ router.get("/launcher/download/:hash", (req, res) => {
         console.error(`Error reading file: ${err}`);
         res.status(500).end();
     });
+});
+
+// plugins
+router.get("/plugins", (req, res) => {
+    res.redirect("/plugins"); // redirect to the plugin publish page
+});
+
+router.get("/plugins/info", (req, res) => {
+    res.json(getPlugins())
 })
 
 module.exports = router;
