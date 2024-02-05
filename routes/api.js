@@ -1,10 +1,12 @@
 const CryptoJS = require("crypto-js")
+const { v4: uuidv4 } = require('uuid');
 const AdmZip = require('adm-zip');
 
 const express = require('express');
-const {apiConfig} = require("../config");
+const {apiConfig, websiteConfig} = require("../config");
 const fs = require("fs");
 const router = express.Router();
+const encoder = new TextEncoder();
 
 const hashmap = {}
 
@@ -234,6 +236,26 @@ router.post("/launcher/launch", (req, res) => {
 
     res.json(versionResult);
 });
+
+router.post("/launcher/uploadCrashReport", (req, res) => {
+    if (!apiConfig.celestial.enableCrashReport) {
+        res.status(405);
+        res.json({
+            message: "Crash report upload is disabled! Please enable it in config.js!"
+        });
+        return;
+    }
+    let crashId = uuidv4();
+
+    let path = `config/crash-report/${crashId}.json`;
+    fs.writeFileSync(path, JSON.stringify(req.body));
+
+    res.json({
+        id: crashId,
+        message: "Successful",
+        url: `${websiteConfig.url}/crash?id=${crashId}`
+    });
+})
 
 router.get("/download/:hash", (req, res) => {
     let hash = req.params["hash"];

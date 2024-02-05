@@ -1,6 +1,7 @@
 exports.websiteConfig = {
     title: "LunarCN Client | Welcome!",
-    description: "A high performance Minecraft launcher"
+    description: "A high performance Minecraft launcher",
+    url: "http://127.0.0.1:3000"
 };
 
 exports.apiConfig = {
@@ -8,8 +9,10 @@ exports.apiConfig = {
         defaultVersion: "1.8.9",
         // alert
         alert: null,
-        modPacks: [
-        ]
+        modPacks: []
+    },
+    celestial: {
+        enableCrashReport: true
     },
     launch: {
         defaultMainClass: "com.moonsworth.lunar.genesis.Genesis",
@@ -26,6 +29,6 @@ exports.apiConfig = {
         ]
     },
     api: {
-        deploy: "http://127.0.0.1:3000/api"
+        deploy: `${exports.websiteConfig.url}/api`
     }
 }
