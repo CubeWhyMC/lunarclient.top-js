@@ -75,6 +75,9 @@ function findVersionInfo(version, module, os, arch) {
                 artifacts: getArtifacts(version, module, os, arch).concat(json["launch"]["artifacts"]),
                 mainClass: apiConfig.launch.defaultMainClass,
                 ichor: true
+            },
+            jre: {
+                extraArguments: apiConfig.launch.defaultVMArgs
             }
         }
         return {...out, ...json["launch"]["ext"]}
