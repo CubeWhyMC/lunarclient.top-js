@@ -13,8 +13,10 @@ router.get('/', function (req, res, next) {
 
 function getCrashReportList() {
     let list = [];
-    fs.readdirSync("config/crash-report").forEach((report) => {
-        list.push(report.slice(0, report.lastIndexOf('.')));
+    let path = "config/crash-report";
+    fs.readdirSync(path).forEach((report) => {
+        let stat = fs.statSync(`${path}/${report}`);
+        if (stat.isFile() && report.endsWith(".json")) list.push(report.slice(0, report.lastIndexOf('.')));
     });
     return list;
 }
