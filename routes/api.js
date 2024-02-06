@@ -245,7 +245,7 @@ router.post("/launcher/uploadCrashReport", (req, res) => {
 
 router.get("/game/metadata", (req, res) => {
     // todo 动态生成游戏元数据
-    let gameMetadata = fs.readFileSync("config/game-metadata.json");
+    let gameMetadata = fs.readFileSync("config/game-metadata.json", "utf-8");
     res.json(gameMetadata)
 })
 
