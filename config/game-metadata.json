@@ -1,6 +1,3 @@
-// 20240206095326
-// https://api.lunarclientprod.com/game/metadata
-
 {
   "blogPosts": [
     {
@@ -396,8 +393,7 @@
     },
     {
       "identifier": "lcqt-2",
-      "regex": "Cannot invoke \\\"com\\.moonsworth\\.lunar\\.client\\.Obf'd\\.Obf'd\\.Obf'd\\.Obf'd\\.Obf'd\\(com\\.google\\.gson\\.JsonObject,
-      java\\.util\\.function\\.Predicate\\)\\\" because the return value of \\\"com\\.moonsworth\\.lunar\\.client\\.Obf'd\\.Obf'd\\.Obf'd\\.Obf'd\\(String\\)\\\" is null"
+      "regex": "Cannot invoke \\\"com\\.moonsworth\\.lunar\\.client\\.Obf'd\\.Obf'd\\.Obf'd\\.Obf'd\\.Obf'd\\(com\\.google\\.gson\\.JsonObject,java\\.util\\.function\\.Predicate\\)\\\" because the return value of \\\"com\\.moonsworth\\.lunar\\.client\\.Obf'd\\.Obf'd\\.Obf'd\\.Obf'd\\(String\\)\\\" is null"
     },
     {
       "identifier": "solartweaks-1",
