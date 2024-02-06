@@ -184,7 +184,7 @@ function getPlugins() {
             let zip = new AdmZip(addonFile);
 
             let metaJson = zip.getEntry("addon.meta.json");
-            let meta = {}
+            let meta = null
             if (metaJson) meta = JSON.parse(metaJson.getData().toString('utf8'))
 
             list.push({
