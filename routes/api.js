@@ -122,6 +122,7 @@ function getExternalFiles(version, module) {
 
         if (stat.isFile() && file.endsWith(".jar")) {
             let hash = CryptoJS.SHA1(fs.readFileSync(really)).toString()
+            if (!hashmap.hasOwnProperty(hash)) hashmap[hash] = really
             list.push({
                 name: file, sha1: hash, url: apiConfig.api.deploy + `/download/${hash}`, type: "EXTERNAL_FILE"
             });

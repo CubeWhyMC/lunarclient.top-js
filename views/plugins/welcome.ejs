@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>LunarCN Client | Plugins</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="Download LunarClient plugins">
+    <link href="https://releases.transloadit.com/uppy/v3.21.0/uppy.min.css" rel="stylesheet">
+</head>
+<body>
+<h2>Upload a plugin</h2>
+<div id="uppy"></div>
+
+<script type="module">
+    import {Uppy, DragDrop, ProgressBar, XHR} from "https://releases.transloadit.com/uppy/v3.21.0/uppy.min.mjs"
+
+    const uppy = new Uppy()
+    uppy.use(DragDrop, {target: '#uppy'})
+        .use(ProgressBar, {target: '#progress-bar'})
+        .use(XHR, {endpoint: 'https://your-domain.com/upload'});
+</script>
+</body>
+</html>
