@@ -1,0 +1,451 @@
+// 20240206095326
+// https://api.lunarclientprod.com/game/metadata
+
+{
+  "blogPosts": [
+    {
+      "title": "Winter Collection",
+      "image": "https://launcherimages.lunarclientcdn.com/cdn-cgi/image/format=webp,width=400,height=170,dpr=2/blogs/wintercollection.png",
+      "link": "https://store.lunarclient.com",
+      "badge": null,
+      "hash": "594bf90ad918afc4afd780c11a777fe16fac1c746c9a299ceefde6723fec8a59"
+    },
+    {
+      "title": "H&R Block",
+      "image": "https://launcherimages.lunarclientcdn.com/cdn-cgi/image/format=webp,width=400,height=170,dpr=2/blogs/h&rstorebillboard.png",
+      "link": "https://store.lunarclient.com/category/hrblock?utm_source=client-game&utm_medium=blog-post&utm_campaign=lead",
+      "badge": null,
+      "hash": "4af8384bcf9101e0b59b6f250ec76c3553df9847d125c036152b1768df4ee9ac"
+    },
+    {
+      "title": "Skyblock",
+      "image": "https://launcherimages.lunarclientcdn.com/cdn-cgi/image/format=webp,width=400,height=170,dpr=2/blogs/skyblocklauncher.png",
+      "link": "https://x.com/LunarClient/status/1746644046167105919?s=20",
+      "badge": null,
+      "hash": "1a00fbacbf41d2cfecc31cadd5b705095192582fa6eb0dfe6c867704c5a2d523"
+    }
+  ],
+  "alert": {
+    "colors": {
+      "RED": {
+        "default": "#59db4040",
+        "hover": "#80db4040"
+      },
+      "BLUE": {
+        "default": "#592b71ce",
+        "hover": "#802b71ce"
+      },
+      "PURPLE": {
+        "default": "#59800080",
+        "hover": "#80800080"
+      },
+      "TWITCH": {
+        "default": "#596441a5",
+        "hover": "#806441a5"
+      },
+      "YOUTUBE": {
+        "default": "#59c4302b",
+        "hover": "#80c4302b"
+      },
+      "DISCORD": {
+        "default": "#597289da",
+        "hover": "#807289da"
+      },
+      "TWITTER": {
+        "default": "#5900acee",
+        "hover": "#8000acee"
+      },
+      "YOUTOOZ": {
+        "default": "#59ff467f",
+        "hover": "#80ff467f"
+      }
+    },
+    "active": [
+
+    ]
+  },
+  "modSettings": {
+    "skyblockAddons": {
+      "properties": {
+        "disableEmberRod": false,
+        "hidePlayersNearNPC": false,
+        "ignoreItemFrameClicks": false,
+        "avoidPlacingEnchantItems": false,
+        "avoidBreakingStems": false,
+        "preventMovementOnDeath": false,
+        "craftingPatterns": false,
+        "craftingPattern": false,
+        "jungleAxeCooldown": false,
+        "onlyMineOresDeepCaverns": false,
+        "onlyMineValuablesNether": false,
+        "doubleWarp": false,
+        "onlyBreakLogsPark": false,
+        "dontOpenProfilesWithBow": false
+      }
+    }
+  },
+  "clientSettings": {
+    "GENERAL": {
+
+    }
+  },
+  "pinnedServers": [
+    {
+      "name": "Complex Gaming",
+      "ip": "lunar.mc-complex.com",
+      "expirationDate": -1,
+      "versions": [
+        "1.8.9",
+        "1.19.0",
+        "1.20.2",
+        "1.18",
+        "1.17.1",
+        "1.19.2",
+        "1.16",
+        "1.18.2",
+        "1.19.4",
+        "1.20.4",
+        "1.20.1",
+        "1.20",
+        "1.12.2",
+        "1.8",
+        "1.19.3",
+        "1.19",
+        "1.17",
+        "1.16.5",
+        "1.18.1",
+        "1.20.3"
+      ],
+      "removable": true
+    }
+  ],
+  "starServers": [
+    {
+      "pattern": "*.mccisland.net",
+      "resource": null
+    },
+    {
+      "pattern": "*.mc-complex.com",
+      "resource": null
+    },
+    {
+      "pattern": "*.hoplite.gg",
+      "resource": null
+    },
+    {
+      "pattern": "*.minecadia.com",
+      "resource": null
+    },
+    {
+      "pattern": "*pokewild.com",
+      "resource": null
+    },
+    {
+      "pattern": "*.pvplegacy.net",
+      "resource": null
+    },
+    {
+      "pattern": "*.oc.tc",
+      "resource": null
+    },
+    {
+      "pattern": "*.ghostly.live",
+      "resource": null
+    },
+    {
+      "pattern": "*.holypvp.net",
+      "resource": null
+    },
+    {
+      "pattern": "*.shotbow.net",
+      "resource": null
+    }
+  ],
+  "featureFlag": [
+    {
+      "identifier": "Trailer",
+      "value": false,
+      "percentage": 100
+    },
+    {
+      "identifier": "SentryIchorHandler",
+      "value": true,
+      "percentage": 100
+    },
+    {
+      "identifier": "LunarPlus",
+      "value": true,
+      "percentage": 100
+    },
+    {
+      "identifier": "DevSentryReportHandler",
+      "value": true,
+      "percentage": 100
+    },
+    {
+      "identifier": "BetaSentryReportHandler",
+      "value": true,
+      "percentage": 100
+    },
+    {
+      "identifier": "BetaSentryExceptionHandler",
+      "value": true,
+      "percentage": 100
+    },
+    {
+      "identifier": "BetaSentryEventBus",
+      "value": true,
+      "percentage": 100
+    },
+    {
+      "identifier": "showOptifineCapes",
+      "value": true,
+      "percentage": 100
+    },
+    {
+      "identifier": "DevSentryExceptionHandler",
+      "value": true,
+      "percentage": 100
+    },
+    {
+      "identifier": "DevSentryEventBus",
+      "value": true,
+      "percentage": 100
+    },
+    {
+      "identifier": "DevSentryIchorHandler",
+      "value": true,
+      "percentage": 100
+    },
+    {
+      "identifier": "mcstats",
+      "value": false,
+      "percentage": 100
+    },
+    {
+      "identifier": "YouTooz",
+      "value": false,
+      "percentage": 100
+    },
+    {
+      "identifier": "BetaSentryIchorHandler",
+      "value": true,
+      "percentage": 100
+    },
+    {
+      "identifier": "BetaSentryAuthHandler",
+      "value": false,
+      "percentage": 100
+    },
+    {
+      "identifier": "DevSentryAuthHandler",
+      "value": false,
+      "percentage": 100
+    },
+    {
+      "identifier": "SentryAuthHandler",
+      "value": false,
+      "percentage": 100
+    },
+    {
+      "identifier": "BetaSentryCosmeticsHandler",
+      "value": true,
+      "percentage": 100
+    },
+    {
+      "identifier": "DevSentryCosmeticsHandler",
+      "value": true,
+      "percentage": 100
+    },
+    {
+      "identifier": "SentryCosmeticsHandler",
+      "value": true,
+      "percentage": 100
+    },
+    {
+      "identifier": "SentryEventBus",
+      "value": true,
+      "percentage": 100
+    },
+    {
+      "identifier": "SentryExceptionHandler",
+      "value": true,
+      "percentage": 100
+    },
+    {
+      "identifier": "SentryReportHandler",
+      "value": true,
+      "percentage": 100
+    },
+    {
+      "identifier": "SentryTraceSampling",
+      "value": true,
+      "percentage": 100
+    },
+    {
+      "identifier": "ModMetadata",
+      "value": false,
+      "percentage": 100
+    },
+    {
+      "identifier": "Wrapped",
+      "value": false,
+      "percentage": 100
+    }
+  ],
+  "serverIntegration": [
+    {
+      "ip": [
+        "shotbow.net",
+        "shotbow.com"
+      ],
+      "modSettings": {
+        "textHotKey": {
+          "enabled": false
+        },
+        "particleMod": {
+          "enabled": false
+        }
+      }
+    },
+    {
+      "ip": [
+        "hypixel.net"
+      ],
+      "brand": "Hypixel BungeeCord",
+      "modSettings": {
+        "textHotKey": {
+          "enabled": false
+        },
+        "freelook": {
+          "enabled": false
+        },
+        "MINIMAP": {
+          "enabled": false
+        },
+        "particleMod": {
+          "properties": {
+            "particleMod_footstep": "false"
+          }
+        }
+      }
+    },
+    {
+      "ip": [
+        "mccisland.net",
+        "mccisland.com",
+        "noxcrew.online"
+      ],
+      "modSettings": {
+        "tab": {
+          "enabled": false
+        },
+        "directionhud": {
+          "enabled": false
+        },
+        "tntCountdown": {
+          "enabled": false
+        },
+        "nametag": {
+          "nametag_bl": false
+        },
+        "nickHider": {
+          "enabled": false
+        },
+        "waypoints": {
+          "enabled": false
+        },
+        "time_changer": {
+          "enabled": false
+        },
+        "snaplook": {
+          "enabled": false
+        },
+        "freelook": {
+          "enabled": false
+        }
+      },
+      "clientSettings": {
+        "GENERAL": {
+          "noxesiumCustomRenderType": true
+        }
+      }
+    },
+    {
+      "ip": [
+        "mcc.noxcrew.com"
+      ],
+      "modSettings": {
+        "tab": {
+          "enabled": false
+        }
+      }
+    }
+  ],
+  "store": {
+
+  },
+  "sentryFilteredExceptions": [
+    {
+      "identifier": "rpc-timeout",
+      "regex": "Timeout waiting for response .*"
+    },
+    {
+      "identifier": "lcqt-1",
+      "regex": "unlocker\\.S\\.send"
+    },
+    {
+      "identifier": "lcqt-2",
+      "regex": "Cannot invoke \\\"com\\.moonsworth\\.lunar\\.client\\.Obf'd\\.Obf'd\\.Obf'd\\.Obf'd\\.Obf'd\\(com\\.google\\.gson\\.JsonObject,
+      java\\.util\\.function\\.Predicate\\)\\\" because the return value of \\\"com\\.moonsworth\\.lunar\\.client\\.Obf'd\\.Obf'd\\.Obf'd\\.Obf'd\\(String\\)\\\" is null"
+    },
+    {
+      "identifier": "solartweaks-1",
+      "regex": "com\\.solartweaks\\.engine\\.util\\.BoxElementFinder"
+    },
+    {
+      "identifier": "disk-full-1",
+      "regex": "No space left on device"
+    },
+    {
+      "identifier": "webp",
+      "regex": "java\\.lang\\.UnsatisfiedLinkError\\: \\'int com\\.luciad\\.imageio\\.webp\\.WebP\\.getInfo\\(byte\\[\\]\\, int\\, int\\, int\\[\\]\\)\\'"
+    },
+    {
+      "identifier": "3dskins",
+      "regex": "HttpTexture is already uploaded & no cache file exists"
+    },
+    {
+      "identifier": "disk-full-2",
+      "regex": "There is not enough space on the disk"
+    },
+    {
+      "identifier": "lcqt-3",
+      "regex": "lcqt_getMethod"
+    },
+    {
+      "identifier": "lcqt-4",
+      "regex": "Cannot invoke \"net\\.java\\.games\\.input\\.Component\\$Identifier\\$Button\\.getName\\(\\)\" because \"id\" is null"
+    },
+    {
+      "identifier": "lcqt-5",
+      "regex": "io\\.github\\.nilsen84\\.lcqt\\.cosmetics\\.Proxy"
+    },
+    {
+      "identifier": "found-attached-agents",
+      "regex": "Found attached agents"
+    }
+  ],
+  "langOverride": {
+
+  },
+  "links": {
+    "wrapped": "https://wrapped.lunarclient.com/access/",
+    "store": "https://store.lunarclient.com/?utm_source=client-multiver&utm_medium=main-menu",
+    "website": "https://www.lunarclient.com",
+    "support": "https://support.lunarclient.com",
+    "merch": "https://merch.lunarclient.com",
+    "youtooz": "https://lunarclient.youtooz.com",
+    "trailer": "https://lunarclient.com/trailer"
+  }
+}

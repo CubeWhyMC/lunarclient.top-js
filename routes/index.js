@@ -24,7 +24,9 @@ function getCrashReportList() {
 function getCrashReport(id) {
     let path = `config/crash-report/${id}.json`;
     if (!fs.existsSync(path)) return null;
-    return JSON.parse(fs.readFileSync(path, "utf-8"));
+    let result = JSON.parse(fs.readFileSync(path, "utf-8"));
+    if (!result.hasOwnProperty("launchScript")) result = {...result, launchScript: null};
+    return result;
 }
 
 router.get("/crash", (req, res) => {

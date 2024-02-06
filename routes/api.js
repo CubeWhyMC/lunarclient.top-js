@@ -243,6 +243,14 @@ router.post("/launcher/uploadCrashReport", (req, res) => {
     });
 })
 
+router.get("/game/metadata", (req, res) => {
+    // todo 动态生成游戏元数据
+    let gameMetadata = fs.readFileSync("config/game-metadata.json");
+    res.json(gameMetadata)
+})
+
+// download
+
 router.get("/download/:hash", (req, res) => {
     let hash = req.params["hash"];
 
