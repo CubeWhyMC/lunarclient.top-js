@@ -90,6 +90,8 @@ function getArtifacts(version, module, os, arch) {
     let majorVersion = version.split(".").slice(0, 2).join(".");
     let path = `config/versions/${majorVersion}/${version}/artifacts/${module}`;
 
+    if (!fs.existsSync(path)) return list;
+
     let artifacts = fs.readdirSync(path);
     artifacts.forEach((artifact) => {
         let file = `${path}/${artifact}`;
