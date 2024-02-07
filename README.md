@@ -2,4 +2,4 @@
 
 This source include the api
 
-[Document](https://cubewhy.me)
+[Document](https://www.lunarclient.top/help)
