@@ -1,0 +1,17 @@
+/* Light Mode */
+@media (prefers-color-scheme: light) {
+    /* Include styles for light mode */
+    body {
+        background-color: #ffffff;
+        color: #000000;
+    }
+}
+
+/* Dark Mode */
+@media (prefers-color-scheme: dark) {
+    /* Include styles for dark mode */
+    body {
+        background-color: #000000;
+        color: #ffffff;
+    }
+}

@@ -10,6 +10,9 @@
   [API](celestial/api)
   [配置](celestial/config)
 
+- 网站
+  [自动同步工件是如何工作的](website/howitworks/sync-artifact)
+
 - Lunar API
   [启动](lunar/launch-api)
   [启动器更新](lunar/update)

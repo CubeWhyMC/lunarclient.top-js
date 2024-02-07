@@ -82,4 +82,8 @@ router.get("/plugins", (req, res) => {
     res.render("plugins/welcome");
 });
 
+router.get("/plugins/submission", (req, res) => {
+    res.redirect("/plugins")
+})
+
 module.exports = router;

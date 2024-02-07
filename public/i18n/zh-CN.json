@@ -24,6 +24,9 @@
     "footer-links":"链接",
     "footer-repo":"GitHub 仓库",
     "footer-donate": "赞助我们",
-    "launch-count": "启动次数:"
+    "launch-count": "启动次数:",
+    "nav-plugins": "插件库",
+    "title-upload-plugin": "提交插件",
+    "title-download-local": "从本服务器下载"
   }
   
