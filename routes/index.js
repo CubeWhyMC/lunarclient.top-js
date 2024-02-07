@@ -71,7 +71,7 @@ router.get("/download", (req, res) => {
 })
 
 router.get('/help', function (req, res, next) {
-    res.redirect("https://mc.lunarclient.top/docs"); // by xrk
+    res.render("help"); // by xrk
 });
 
 router.get("/donate", function (req, res) {
