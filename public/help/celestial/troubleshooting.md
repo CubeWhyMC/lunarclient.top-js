@@ -32,6 +32,8 @@ Actions版本如果出现报错请开[issue](https://github.com/CubeWhyMC/celest
 
 ### 通过API获取在线日志
 
+> 该API已弃用
+
 列表: https://api.lunarclient.top/launcher/getCrashReport
 
 获取指定: https://api.lunarclient.top/launcher/getCrashReport?id=<report_id>
