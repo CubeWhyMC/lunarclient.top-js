@@ -14,8 +14,14 @@ router.use(session({
     saveUninitialized: true,
 }));
 
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
     if (req.session.user) {
+        if (req.query.hasOwnProperty("flush")) {
+            req.session.user = await User.findOne({
+                $or: [{username: req.session.user.username}, {email: req.session.user.email}]
+            });
+            return res.redirect("/users"); // do redirect
+        }
         let info = {
             username: req.session.user.username,
             email: req.session.user.email,
@@ -100,6 +106,7 @@ router.post("/register", async (req, res) => {
             username: req.body.username,
             email: req.body.email,
             password: hashedPassword,
+            mcIgn: "*unset*"
         });
 
         await user.save();
@@ -152,10 +159,10 @@ router.post("/bindmc", async (req, res) => {
         return res.status(404).json({message: "未登录"});
     }
 
-    user.mcIgn = req.body.mcIgn;
+    user.mcIgn = req.body["ign"];
 
     await user.save();
-    res.redirect("/users"); // success
+    res.redirect("/users?flush"); // success
 })
 
 module.exports = router;
