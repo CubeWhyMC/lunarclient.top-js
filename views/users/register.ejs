@@ -6,18 +6,6 @@
     <title>LunarCN Official | 登录</title>
     <link href="https://cdn.staticfile.org/layui/2.9.6/css/layui.css" rel="stylesheet">
     <link href="/stylesheets/user.css" rel="stylesheet">
-
-    <script>
-        layui.use(['form', 'element'], function () {
-            var form = layui.form
-                , element = layui.element;
-        })
-
-        layui.use(['button', 'element'], function(){
-            var button = layui.button
-                ,element = layui.element;
-        });
-    </script>
 </head>
 <body>
 <div class="login-container">
@@ -32,20 +20,27 @@
         <div class="layui-form-item">
             <label class="layui-form-label">邮箱</label>
             <div class="layui-input-block">
-                <input type="text" name="email" required lay-verify="required" placeholder="me@lunarclient.top"
+                <input type="email" name="email" required lay-verify="required" placeholder="me@lunarclient.top"
                        autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">密码</label>
             <div class="layui-input-block">
-                <input type="password" name="password" required lay-verify="required" placeholder="cubewhy123"
+                <input type="password" id="pwd" name="password" required lay-verify="required" placeholder="cubewhy123"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">再来一遍</label>
+            <div class="layui-input-block">
+                <input type="password" lay-verify="required|confirmPassword" id="pwd-again" required lay-verify="required" placeholder="cubewhy123"
                        autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <div class="layui-input-block">
-                <button class="layui-btn layui-bg-red" id="loginBtn">登录</button>
+                <button class="layui-btn layui-bg-red" id="loginBtn" type="button">登录</button>
                 <button class="layui-btn" lay-submit lay-filter="loginForm">立即提交</button>
             </div>
         </div>
@@ -58,16 +53,27 @@
         var form = layui.form
             , element = layui.element;
 
+        form.verify({
+            // 确认密码
+            confirmPassword: function(value, item){
+                console.log(value);
+                let passwordValue = document.getElementById('pwd').value;
+                console.log(passwordValue);
+                if(value !== passwordValue){
+                    return '两次密码输入不一致';
+                }
+            }
+        });
+
         // 监听提交事件
         form.on('submit(loginForm)', function (data) {
-            // 提交表单
             return true;
         });
     });
 
-    layui.use(['layer'], function(){
+    layui.use(['layer'], function () {
         // 点击注册按钮
-        document.getElementById('loginBtn').onclick = function() {
+        document.getElementById('loginBtn').onclick = function () {
             window.location.href = '/users';
         };
         return false;
