@@ -16,9 +16,9 @@
             <li class="layui-nav-item layui-show-xs-inline-block layui-hide-sm" lay-header-event="menuLeft">
                 <i class="layui-icon layui-icon-spread-left"></i>
             </li>
-            <li class="layui-nav-item layui-hide-xs"><a href="javascript:;">nav 1</a></li>
-            <li class="layui-nav-item layui-hide-xs"><a href="javascript:;">nav 2</a></li>
-            <li class="layui-nav-item layui-hide-xs"><a href="javascript:;">nav 3</a></li>
+            <li class="layui-nav-item layui-hide-xs"><a href="javascript:" onclick="switchTab('home')">Home</a></li>
+            <li class="layui-nav-item layui-hide-xs"><a href="javascript:">nav 2</a></li>
+            <li class="layui-nav-item layui-hide-xs"><a href="javascript:">nav 3</a></li>
             <li class="layui-nav-item">
                 <a href="javascript:;">nav groups</a>
                 <dl class="layui-nav-child">
@@ -35,7 +35,6 @@
                     <%= username %>
                 </a>
                 <dl class="layui-nav-child">
-                    <dd><a href="javascript:;">公共账户信息</a></dd>
                     <dd><a href="/users/logout">退出登录</a></dd>
                 </dl>
             </li>
@@ -72,25 +71,11 @@
             </ul>
         </div>
     </div>
+
     <div class="layui-body">
-        <!-- 内容主体区域 -->
-        <div style="padding: 15px;">
-            <blockquote class="layui-elem-quote layui-text">
-                帮助文档 <a href="/help">在这里</a>
-                点击左边的栏目开始设置
-            </blockquote>
-            <div class="layui-card layui-panel">
-                <div class="layui-card-header">
-                    用户信息
-                </div>
-                <div class="layui-card-body">
-                    <p>名称: <%= username %></p>
-                    <p>邮箱: <%= email %></p>
-                </div>
-            </div>
-            <br><br>
-        </div>
+        <!-- 内容区域 -->
     </div>
+
     <div class="layui-footer">
         <!-- 底部固定区域 -->
         由向日葵CDN提供支持,打不死 (这是个玩笑,我们不卖CDN)
@@ -99,7 +84,18 @@
 
 <script src="https://cdn.staticfile.org/layui/2.9.6/layui.js"></script>
 <script>
-    //JS
+    function switchTab(name) {
+        const xhttp = new XMLHttpRequest();
+        xhttp.onload = function() {
+            document.getElementsByClassName("layui-body")[0].innerHTML =
+                this.responseText;
+        }
+        xhttp.open("GET", `/users?page=${name}`);
+        xhttp.send();
+    }
+
+    switchTab("home");
+
     layui.use(['element', 'layer', 'util'], function () {
         var element = layui.element;
         var layer = layui.layer;
@@ -125,6 +121,7 @@
             }
         });
     });
+
 </script>
 </body>
 </html>

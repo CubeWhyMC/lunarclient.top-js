@@ -16,10 +16,15 @@ router.use(session({
 
 router.get('/', (req, res) => {
     if (req.session.user) {
-        res.render("users/dashboard", {
+        let info = {
             username: req.session.user.username,
             email: req.session.user.email
-        });
+        };
+        if (req.query.page) {
+            res.render(`users/pages/${req.query.page}`, info)
+        } else {
+            res.render("users/dashboard", info);
+        }
     } else if (req.query.hasOwnProperty("register")) {
         if (websiteConfig.users.openRegistration) {
             res.render("users/register");
@@ -47,7 +52,7 @@ const User = mongoose.model('User', userSchema);
 
 router.get("/login", (req, res) => {
     res.redirect("/users");
-})
+});
 
 router.post("/login", async (req, res) => {
     const errors = validationResult(req);
@@ -64,11 +69,11 @@ router.post("/login", async (req, res) => {
     }
     req.session.user = existingUser;
     res.redirect("/users");
-})
+});
 
 router.get("/register", (req, res) => {
     res.redirect("/users");
-})
+});
 
 router.post("/register", async (req, res) => {
     if (!websiteConfig.users.openRegistration) return res.status(415).json({
@@ -110,6 +115,21 @@ router.post("/register", async (req, res) => {
 router.get("/logout", (req, res) => {
     req.session.destroy();
     res.redirect("/users")
+});
+
+router.post("/passwd-reset", async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({errors: errors.array()});
+    }
+
+    // 查找用户
+    const user = req.session.user;
+    if (!user) {
+        return res.status(404).json({message: "未登录"});
+    }
+    user.password = await bcrypt.hash(req.body.password, 10);
+    await user.save();
 });
 
 module.exports = router;
