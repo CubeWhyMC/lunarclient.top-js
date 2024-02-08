@@ -18,7 +18,8 @@ router.get('/', (req, res) => {
     if (req.session.user) {
         let info = {
             username: req.session.user.username,
-            email: req.session.user.email
+            email: req.session.user.email,
+            mcIgn: req.session.user.mcIgn
         };
         if (req.query.page) {
             res.render(`users/pages/${req.query.page}`, info)
@@ -46,6 +47,7 @@ const userSchema = new mongoose.Schema({
     username: String,
     email: String,
     password: String,
+    mcIgn: String
 });
 
 const User = mongoose.model('User', userSchema);
@@ -61,7 +63,7 @@ router.post("/login", async (req, res) => {
     }
 
     const existingUser = await User.findOne({
-        username: req.body.username,
+        $or: [{username: req.body.username}, {email: req.body.email}]
     });
 
     if (!existingUser) {
@@ -124,12 +126,36 @@ router.post("/passwd-reset", async (req, res) => {
     }
 
     // 查找用户
-    const user = req.session.user;
+    const user = await User.findOne({
+        $or: [{username: req.session.user.username}, {email: req.session.user.email}]
+    });
+
     if (!user) {
         return res.status(404).json({message: "未登录"});
     }
     user.password = await bcrypt.hash(req.body.password, 10);
     await user.save();
+
+    res.redirect("/users"); // success
 });
+
+router.post("/bindmc", async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({errors: errors.array()});
+    }
+    const user = await User.findOne({
+        $or: [{username: req.session.user.username}, {email: req.session.user.email}]
+    });
+
+    if (!user) {
+        return res.status(404).json({message: "未登录"});
+    }
+
+    user.mcIgn = req.body.mcIgn;
+
+    await user.save();
+    res.redirect("/users"); // success
+})
 
 module.exports = router;
