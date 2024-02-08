@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>LunarCN Official | 登录</title>
+    <link href="https://cdn.staticfile.org/layui/2.9.6/css/layui.css" rel="stylesheet">
+    <link href="/stylesheets/user.css" rel="stylesheet">
+
+    <script>
+        layui.use(['form', 'element'], function () {
+            var form = layui.form
+                , element = layui.element;
+        })
+
+        layui.use(['button', 'element'], function(){
+            var button = layui.button
+                ,element = layui.element;
+        });
+    </script>
+</head>
+<body>
+<div class="login-container">
+    <form class="layui-form" action="/users/register" method="post">
+        <div class="layui-form-item">
+            <label class="layui-form-label">用户名</label>
+            <div class="layui-input-block">
+                <input type="text" name="username" required lay-verify="required" placeholder="admin"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">邮箱</label>
+            <div class="layui-input-block">
+                <input type="text" name="email" required lay-verify="required" placeholder="me@lunarclient.top"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">密码</label>
+            <div class="layui-input-block">
+                <input type="password" name="password" required lay-verify="required" placeholder="cubewhy123"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn layui-bg-red" id="loginBtn">登录</button>
+                <button class="layui-btn" lay-submit lay-filter="loginForm">立即提交</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script src="https://cdn.staticfile.org/layui/2.9.6/layui.js"></script>
+<script>
+    layui.use(['form', 'element'], function () {
+        var form = layui.form
+            , element = layui.element;
+
+        // 监听提交事件
+        form.on('submit(loginForm)', function (data) {
+            // 提交表单
+            return true;
+        });
+    });
+
+    layui.use(['layer'], function(){
+        // 点击注册按钮
+        document.getElementById('loginBtn').onclick = function() {
+            window.location.href = '/users';
+        };
+        return false;
+    });
+</script>
+</body>
+</html>

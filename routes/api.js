@@ -100,7 +100,7 @@ function getArtifacts(version, module, os, arch) {
             let hash = CryptoJS.SHA1(fs.readFileSync(file)).toString()
             if (!hashmap.hasOwnProperty(hash)) hashmap[hash] = file;
             list.push({
-                name: artifact, sha1: hash, url: apiConfig.api.deploy + `/download/${hash}`, type: "CLASS_PATH"
+                name: artifact, sha1: hash, url: apiConfig.websiteConfig.url + `/api/download/${hash}`, type: "CLASS_PATH"
             });
         }
     });
@@ -124,7 +124,7 @@ function getExternalFiles(version, module) {
             let hash = CryptoJS.SHA1(fs.readFileSync(really)).toString()
             if (!hashmap.hasOwnProperty(hash)) hashmap[hash] = really
             list.push({
-                name: file, sha1: hash, url: apiConfig.api.deploy + `/download/${hash}`, type: "EXTERNAL_FILE"
+                name: file, sha1: hash, url: apiConfig.websiteConfig.url + `/api/download/${hash}`, type: "EXTERNAL_FILE"
             });
         }
     })

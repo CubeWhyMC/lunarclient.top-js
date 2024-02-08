@@ -12,6 +12,8 @@
     <orderEntry type="library" name="@studio-freight/lenis" level="application" />
     <orderEntry type="library" name="jquery" level="application" />
     <orderEntry type="library" name="uppy" level="application" />
+    <orderEntry type="library" name="layui" level="application" />
     <orderEntry type="library" name="bootstrap" level="application" />
+    <orderEntry type="library" name="echarts" level="application" />
   </component>
 </module>
