@@ -1,6 +1,5 @@
 let express = require('express');
 let router = express.Router();
-const os = require('os');
 const {websiteConfig} = require("../config");
 const mongoose = require("mongoose");
 const {body, validationResult} = require("express-validator");
@@ -19,6 +18,7 @@ router.get('/', (req, res) => {
     if (req.session.user) {
         res.render("users/dashboard", {
             username: req.session.user.username,
+            email: req.session.user.email
         });
     } else if (req.query.hasOwnProperty("register")) {
         if (websiteConfig.users.openRegistration) {
@@ -71,6 +71,9 @@ router.get("/register", (req, res) => {
 })
 
 router.post("/register", async (req, res) => {
+    if (!websiteConfig.users.openRegistration) return res.status(415).json({
+        message: "注册已关闭!"
+    })
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({errors: errors.array()});
