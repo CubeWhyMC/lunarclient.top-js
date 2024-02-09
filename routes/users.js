@@ -2,6 +2,7 @@ let express = require('express');
 let router = express.Router();
 const {websiteConfig} = require("../config");
 const mongoose = require("mongoose");
+const fs = require("fs");
 const {body, validationResult} = require("express-validator");
 const bcrypt = require("bcrypt");
 const session = require('express-session');
@@ -74,7 +75,7 @@ router.post("/login", async (req, res) => {
         $or: [{username: req.body.username}, {email: req.body.email}]
     });
 
-    if (!existingUser) {
+    if (!existingUser || !(await bcrypt.compare(req.body.password, existingUser.password))) {
         return res.status(400).redirect("/users?wrong-credentials")
     }
     req.session.user = existingUser;
@@ -188,14 +189,12 @@ router.get("/cape", (req, res) => {
     res.redirect("/users");
 })
 
-router.put("/cape/upload", async (req, res) => {
-    if (!req.session.user) return res.redirect("/users"); // please log in
-    let ign = req.session.user.mcIgn;
-    if (!isMinecraftIgn(ign)) return res.redirect("/users?msg=请先绑定Minecraft账户")
-    let bytes = req.body
-    if (!bytes) return res.redirect("/users?msg=上传内容为空")
-    fs.writeFileSync(`config/capes/${ign}.png`, bytes, "binary");
-    res.status(200).redirect("/users?switchPage=cape")
-});
+// router.post("/cape/upload", async (req, res) => {
+//     if (!req.session.user) return res.redirect("/users"); // please log in
+//     let file = req.file;
+//     if (!file) return res.redirect("/users?msg=上传内容为空");
+//     fs.writeFileSync(`config/capes/${req.session.user.username}.png`, file.buffer);
+//     res.status(200).redirect("/users?switchPage=cape");
+// });
 
 module.exports = router;

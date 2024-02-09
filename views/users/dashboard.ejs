@@ -85,11 +85,32 @@
 <script>
     function switchTab(name) {
         const xhttp = new XMLHttpRequest();
-        xhttp.onload = function() {
+        let regDetectJs = /<script(.|\n)*?>(.|\n|\r\n)*?<\/script>/ig;
+        xhttp.onload = function () {
             document.getElementsByClassName("layui-body")[0].innerHTML =
                 this.responseText;
+            var jsContained = this.responseText.match(regDetectJs);
+            if (jsContained) {
+                // 分段取出js正则
+                var regGetJS = /<script(.|\n)*?>((.|\n|\r\n)*)?<\/script>/im;
+                // 按顺序分段执行js
+                const jsNums = jsContained.length;
+                for (let i = 0; i < jsNums; i++) {
+                    const jsSection = jsContained[i].match(regGetJS);
+                    if (jsSection[2]) {
+                        if (window.execScript) {
+                            // 给IE的特殊待遇
+                            window.execScript(jsSection[2]);
+                        } else {
+                            // 给其他大部分浏览器用的
+                            window.eval(jsSection[2]);
+                        }
+                    }
+                }
+            }
         }
         xhttp.open("GET", `/users?page=${name}`);
+
         xhttp.send();
     }
 
