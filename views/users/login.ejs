@@ -83,6 +83,12 @@
                 layer.msg("错误的用户名或密码", {icon: 5});
             });
             break;
+        case "2":
+            layui.use(function () {
+                var layer = layui.layer;
+                layer.msg("注册已关闭", {icon: 5});
+            });
+            break;
     }
     layui.use(['form', 'element'], function () {
         var form = layui.form

@@ -93,12 +93,12 @@
         xhttp.send();
     }
 
-    switchTab("home");
+    switchTab("<%= page %>");
 
     <% if (message) { %>
     layui.use(function () {
-        var layer = layui.layer;
-        layer.msg("<%= message %>", {icon: 5});
+        let layer = layui.layer;
+        layer.msg("<%= message %>");
     });
     <% } %>
 

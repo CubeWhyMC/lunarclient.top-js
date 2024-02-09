@@ -23,31 +23,28 @@ router.get('/', async (req, res) => {
             return res.redirect("/users"); // do redirect
         }
         let msg = null;
-        if (req.query.msg) {
-            msg = req.query.msg;
-        }
+        let page = "home";
+        if (req.query.hasOwnProperty("switchPage")) page = req.query.page;
+        if (req.query.msg) msg = req.query.msg;
         let info = {
             username: req.session.user.username,
             email: req.session.user.email,
             mcIgn: req.session.user.mcIgn,
-            message: msg
+            message: msg,
+            page: page
         };
-        if (req.query.page) {
-            res.render(`users/pages/${req.query.page}`, info)
-        } else {
-            res.render("users/dashboard", info);
-        }
+        if (req.query.page) res.render(`users/pages/${req.query.page}`, info)
+        else res.render("users/dashboard", info);
     } else if (req.query.hasOwnProperty("register")) {
         if (websiteConfig.users.openRegistration) {
             res.render("users/register");
         } else {
-            res.json({
-                message: "注册已关闭!"
-            })
+            res.redirect("/users?register-closed");
         }
     } else {
         let msgCode = 0;
         if (req.query.hasOwnProperty("wrong-credentials")) msgCode = 1;
+        if (req.query.hasOwnProperty("register-closed")) msgCode = 2;
         res.render("users/login", {
             msgCode: msgCode
         });
@@ -128,7 +125,7 @@ router.post("/register", async (req, res) => {
 
 router.get("/logout", (req, res) => {
     req.session.destroy();
-    res.redirect("/users")
+    res.redirect("/users");
 });
 
 router.post("/passwd-reset", async (req, res) => {
@@ -143,7 +140,7 @@ router.post("/passwd-reset", async (req, res) => {
     });
 
     if (!user) {
-        return res.status(404).json({message: "未登录"});
+        return res.status(404).redirect("/users"); // not login
     }
     user.password = await bcrypt.hash(req.body.password, 10);
     await user.save();
@@ -186,5 +183,18 @@ router.post("/bindmc", async (req, res) => {
     await user.save();
     res.redirect("/users?flush"); // success
 })
+
+router.get("/cape", (req, res) => {
+    res.redirect("/users");
+})
+
+router.put("/cape/upload", async (req, res) => {
+    let ign = req.session.user.mcIgn;
+    if (!isMinecraftIgn(ign)) return res.redirect("/users?msg=请先绑定Minecraft账户")
+    let bytes = req.body
+    if (!bytes) return res.redirect("/users?msg=上传内容为空")
+    fs.writeFileSync(`config/capes/${ign}.png`, bytes, "binary");
+    res.status(200).redirect("/users?switchPage=cape")
+});
 
 module.exports = router;
