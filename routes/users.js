@@ -22,10 +22,15 @@ router.get('/', async (req, res) => {
             });
             return res.redirect("/users"); // do redirect
         }
+        let msg = null;
+        if (req.query.msg) {
+            msg = req.query.msg;
+        }
         let info = {
             username: req.session.user.username,
             email: req.session.user.email,
-            mcIgn: req.session.user.mcIgn
+            mcIgn: req.session.user.mcIgn,
+            message: msg
         };
         if (req.query.page) {
             res.render(`users/pages/${req.query.page}`, info)
@@ -146,20 +151,37 @@ router.post("/passwd-reset", async (req, res) => {
     res.redirect("/users"); // success
 });
 
+function isMinecraftIgn(ign) {
+    if (ign.length < 3 || ign.length > 16) return false;
+    return /^[a-zA-Z0-9_]+$/.test(ign); // by ChatGPT
+}
+
 router.post("/bindmc", async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({errors: errors.array()});
     }
+    const ign = req.body["ign"];
+
+    if (!websiteConfig.users.allowRepeatBindingMCIgn) {
+        const anotherUser = await User.findOne({
+            mcIgn: ign
+        });
+
+        if (anotherUser) return res.redirect(`/users?msg=这个IGN已经被绑定过了! (${ign})`)
+    }
+
     const user = await User.findOne({
         $or: [{username: req.session.user.username}, {email: req.session.user.email}]
     });
 
     if (!user) {
-        return res.status(404).json({message: "未登录"});
+        return res.redirect("/users"); // do login
     }
 
-    user.mcIgn = req.body["ign"];
+    user.mcIgn = ign;
+    // assert ign
+    if (!isMinecraftIgn(ign)) return res.redirect("/users?msg=错误的Minecraft用户名格式");
 
     await user.save();
     res.redirect("/users?flush"); // success

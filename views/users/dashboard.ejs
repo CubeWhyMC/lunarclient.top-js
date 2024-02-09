@@ -2,9 +2,8 @@
 <html lang="zh">
 <head>
     <meta charset="UTF-8">
-    <title>LunarCN Client | Dashboard</title>
+    <title>LunarCN Account | 仪表盘</title>
     <link href="https://cdn.staticfile.org/layui/2.9.6/css/layui.css" rel="stylesheet">
-    <script src="https://cdn.bootcdn.net/ajax/libs/echarts/5.2.2/echarts.min.js"></script>
 </head>
 <body>
 <div class="layui-layout layui-layout-admin">
@@ -95,6 +94,13 @@
     }
 
     switchTab("home");
+
+    <% if (message) { %>
+    layui.use(function () {
+        var layer = layui.layer;
+        layer.msg("<%= message %>", {icon: 5});
+    });
+    <% } %>
 
     layui.use(['element', 'layer', 'util'], function () {
         var element = layui.element;

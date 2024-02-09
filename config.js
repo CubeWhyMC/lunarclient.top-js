@@ -4,9 +4,9 @@ exports.websiteConfig = {
     url: "http://127.0.0.1:3000", // 部署URL
 
     users: {
-        // 重要: 请在实际部署中修改此值
-        secret: "114514-1919810", // Cookie签名KEY
-        openRegistration: true // 是否开放注册
+        secret: "114514-1919810", // Cookie签名KEY 重要: 请在实际部署中修改此值
+        openRegistration: true, // 是否开放注册
+        allowRepeatBindingMCIgn: false // 重复绑定MC账户
     }
 };
 
