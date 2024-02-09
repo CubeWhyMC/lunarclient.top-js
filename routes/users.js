@@ -161,7 +161,7 @@ router.post("/bindmc", async (req, res) => {
     if (!errors.isEmpty()) {
         return res.status(400).json({errors: errors.array()});
     }
-    const ign = req.body["ign"];
+    const ign = req.body["ign"].toLowerCase();
 
     if (!websiteConfig.users.allowRepeatBindingMCIgn) {
         const anotherUser = await User.findOne({
