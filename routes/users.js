@@ -189,6 +189,7 @@ router.get("/cape", (req, res) => {
 })
 
 router.put("/cape/upload", async (req, res) => {
+    if (!req.session.user) return res.redirect("/users"); // please log in
     let ign = req.session.user.mcIgn;
     if (!isMinecraftIgn(ign)) return res.redirect("/users?msg=请先绑定Minecraft账户")
     let bytes = req.body
